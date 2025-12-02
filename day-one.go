@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/rasjonell/aoc/internal/input"
@@ -11,12 +12,13 @@ type Dial struct {
 	pos        uint64
 	n          uint64
 	part       uint8
+	day        uint8
 }
 
 type Direction = rune
 
-func NewDialSolution(n uint64, part uint8) ProblemSolution {
-	return &Dial{n: n, pos: 50, fullRotate: 0, part: part}
+func NewDialSolution(n uint64, day, part uint8) ProblemSolution {
+	return &Dial{n: n, pos: 50, fullRotate: 0, part: part, day: day}
 }
 
 func (d *Dial) process(line string) *Dial {
@@ -68,8 +70,8 @@ func (d *Dial) rotatePartTwo(dir Direction, amount uint64) {
 	d.fullRotate += rotations
 }
 
-func (d *Dial) Solve(inputFile string) string {
-	operations, err := input.ReadLines(inputFile)
+func (d *Dial) Solve() string {
+	operations, err := input.ReadLines(fmt.Sprintf("%d", d.day))
 	if err != nil {
 		panic(err)
 	}
